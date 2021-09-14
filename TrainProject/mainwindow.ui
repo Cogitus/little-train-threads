@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QSlider" name="train1HorizontalSlider">
     <property name="geometry">
@@ -127,6 +130,12 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
@@ -139,6 +148,12 @@
       <width>211</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -153,6 +168,12 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
@@ -165,6 +186,18 @@
       <width>211</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -179,6 +212,12 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
@@ -191,6 +230,12 @@
       <width>211</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -205,6 +250,12 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
@@ -217,6 +268,12 @@
       <width>20</width>
       <height>141</height>
      </rect>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
@@ -231,6 +288,12 @@
       <height>141</height>
      </rect>
     </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
@@ -243,6 +306,12 @@
       <width>20</width>
       <height>141</height>
      </rect>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
@@ -257,6 +326,12 @@
       <height>141</height>
      </rect>
     </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
@@ -269,6 +344,12 @@
       <width>20</width>
       <height>141</height>
      </rect>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
@@ -283,6 +364,12 @@
       <height>141</height>
      </rect>
     </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="midLineWidth">
+     <number>6</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
@@ -294,7 +381,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

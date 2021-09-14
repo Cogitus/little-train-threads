@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void setColorLine(int path_id, int train);
 
 private:
     Ui::MainWindow *ui;
