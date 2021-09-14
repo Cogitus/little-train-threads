@@ -184,7 +184,7 @@ void L(int path_id, int train, MainWindow *w) {
         if(w->tracks[i] == train)
             w->tracks[i] = 0;          // zera o trilho que o trem estava
     }
-    w->tracks[path_id] = train;
+    w->tracks[path_id-1] = train;
     //w->setColorLine(path_id, train);
     sleep(train_velocity[train - 1]); // the array index starts with 0
 }

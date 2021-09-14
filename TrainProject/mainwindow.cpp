@@ -44,7 +44,6 @@ void MainWindow::setColorLine(int path_id, int train)
 
 void MainWindow::resetColorLine(int path_id)
 {
-    QColor color = Qt::gray;
     QPalette *newPalette = new QPalette();
     trackObjects[path_id]->setPalette(*newPalette);
 }
