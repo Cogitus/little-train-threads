@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -32,6 +33,19 @@ public:
     QLabel *velocityLabel2;
     QLabel *velocityLabel3;
     QLabel *velocityLabel4;
+    QFrame *L2;
+    QFrame *L7;
+    QFrame *L8;
+    QFrame *L4;
+    QFrame *L6;
+    QFrame *L10;
+    QFrame *L13;
+    QFrame *L1;
+    QFrame *L3;
+    QFrame *L5;
+    QFrame *L9;
+    QFrame *L12;
+    QFrame *L11;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -70,6 +84,71 @@ public:
         velocityLabel4 = new QLabel(centralwidget);
         velocityLabel4->setObjectName(QString::fromUtf8("velocityLabel4"));
         velocityLabel4->setGeometry(QRect(620, 490, 151, 21));
+        L2 = new QFrame(centralwidget);
+        L2->setObjectName(QString::fromUtf8("L2"));
+        L2->setGeometry(QRect(90, 40, 211, 16));
+        L2->setFrameShape(QFrame::HLine);
+        L2->setFrameShadow(QFrame::Sunken);
+        L7 = new QFrame(centralwidget);
+        L7->setObjectName(QString::fromUtf8("L7"));
+        L7->setGeometry(QRect(300, 40, 211, 16));
+        L7->setFrameShape(QFrame::HLine);
+        L7->setFrameShadow(QFrame::Sunken);
+        L8 = new QFrame(centralwidget);
+        L8->setObjectName(QString::fromUtf8("L8"));
+        L8->setGeometry(QRect(510, 40, 211, 16));
+        L8->setFrameShape(QFrame::HLine);
+        L8->setFrameShadow(QFrame::Sunken);
+        L4 = new QFrame(centralwidget);
+        L4->setObjectName(QString::fromUtf8("L4"));
+        L4->setGeometry(QRect(90, 180, 211, 16));
+        L4->setFrameShape(QFrame::HLine);
+        L4->setFrameShadow(QFrame::Sunken);
+        L6 = new QFrame(centralwidget);
+        L6->setObjectName(QString::fromUtf8("L6"));
+        L6->setGeometry(QRect(300, 180, 211, 16));
+        L6->setFrameShape(QFrame::HLine);
+        L6->setFrameShadow(QFrame::Sunken);
+        L10 = new QFrame(centralwidget);
+        L10->setObjectName(QString::fromUtf8("L10"));
+        L10->setGeometry(QRect(510, 180, 211, 16));
+        L10->setFrameShape(QFrame::HLine);
+        L10->setFrameShadow(QFrame::Sunken);
+        L13 = new QFrame(centralwidget);
+        L13->setObjectName(QString::fromUtf8("L13"));
+        L13->setGeometry(QRect(90, 320, 631, 20));
+        L13->setFrameShape(QFrame::HLine);
+        L13->setFrameShadow(QFrame::Sunken);
+        L1 = new QFrame(centralwidget);
+        L1->setObjectName(QString::fromUtf8("L1"));
+        L1->setGeometry(QRect(80, 50, 20, 141));
+        L1->setFrameShape(QFrame::VLine);
+        L1->setFrameShadow(QFrame::Sunken);
+        L3 = new QFrame(centralwidget);
+        L3->setObjectName(QString::fromUtf8("L3"));
+        L3->setGeometry(QRect(290, 50, 20, 141));
+        L3->setFrameShape(QFrame::VLine);
+        L3->setFrameShadow(QFrame::Sunken);
+        L5 = new QFrame(centralwidget);
+        L5->setObjectName(QString::fromUtf8("L5"));
+        L5->setGeometry(QRect(500, 50, 20, 141));
+        L5->setFrameShape(QFrame::VLine);
+        L5->setFrameShadow(QFrame::Sunken);
+        L9 = new QFrame(centralwidget);
+        L9->setObjectName(QString::fromUtf8("L9"));
+        L9->setGeometry(QRect(710, 50, 20, 141));
+        L9->setFrameShape(QFrame::VLine);
+        L9->setFrameShadow(QFrame::Sunken);
+        L12 = new QFrame(centralwidget);
+        L12->setObjectName(QString::fromUtf8("L12"));
+        L12->setGeometry(QRect(710, 190, 20, 141));
+        L12->setFrameShape(QFrame::VLine);
+        L12->setFrameShadow(QFrame::Sunken);
+        L11 = new QFrame(centralwidget);
+        L11->setObjectName(QString::fromUtf8("L11"));
+        L11->setGeometry(QRect(80, 190, 20, 141));
+        L11->setFrameShape(QFrame::VLine);
+        L11->setFrameShadow(QFrame::Sunken);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
