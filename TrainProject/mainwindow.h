@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QObject>
+#include <QFrame>
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,6 +18,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void setColorLine(int path_id, int train);
+    void resetColorLine(int path_id);
+
+    QMap<int, QColor> trainColors = {{1, Qt::cyan},
+                                     {2, Qt::magenta},
+                                     {3, Qt::red},
+                                     {4, Qt::blue}};
+    QMap<int, QFrame*> trackObjects;
 
 private:
     Ui::MainWindow *ui;
