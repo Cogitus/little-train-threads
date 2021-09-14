@@ -2,6 +2,7 @@
 
 #include <QApplication>
 
+#include <iostream>
 #include <unistd.h>     // for sleep()
 #include <algorithm>    // for fill_n()
 #include <pthread.h>
@@ -15,7 +16,7 @@ void* train1_execution(void* arg);
 void* train2_execution(void* arg);
 void* train3_execution(void* arg);
 void* train4_execution(void* arg);
-void L(int path_id); // function that represents the passage over the L part of the circuit (its ID as a number)
+void L(int path_id, int train); // function that represents the passage over the L part of the circuit (its ID as a number)
 
 // MUTEX DEFINITIONS AS GLOBAL
 pthread_mutex_t mutex_train12;   // mutex for train 1 and 2 intersection
@@ -77,62 +78,63 @@ int main(int argc, char *argv[])
 
 void* train1_execution(void* arg){
     while(true) {
-        L(2);
+        L(2, 1);
         pthread_mutex_lock(&mutex_train12);
-        L(3);
+        L(3, 1);
         pthread_mutex_unlock(&mutex_train12);
         pthread_mutex_lock(&mutex_train14);
-        L(4);
+        L(4, 1);
         pthread_mutex_unlock(&mutex_train14);
-        L(1);
+        L(1, 1);
     }
 }
 
 void* train2_execution(void* arg){
     while(true) {
-        L(7);
+        L(7, 2);
         pthread_mutex_lock(&mutex_train23);
-        L(5);
+        L(5, 2);
         pthread_mutex_unlock(&mutex_train23);
         pthread_mutex_lock(&mutex_train24);
-        L(6);
+        L(6, 2);
         pthread_mutex_unlock(&mutex_train24);
         pthread_mutex_lock(&mutex_train12);
-        L(3);
+        L(3, 2);
         pthread_mutex_unlock(&mutex_train12);
     }
 }
 
 void* train3_execution(void* arg){
     while(true) {
-        L(8);
-        L(9);
+        L(8, 3);
+        L(9, 3);
         pthread_mutex_lock(&mutex_train34);
-        L(10);
+        L(10, 3);
         pthread_mutex_unlock(&mutex_train34);
         pthread_mutex_lock(&mutex_train23);
-        L(5);
+        L(5, 3);
         pthread_mutex_unlock(&mutex_train23);
     }
 }
 
 void* train4_execution(void* arg){
     while(true) {
-        L(13);
-        L(11);
+        L(13, 4);
+        L(11, 4);
         pthread_mutex_lock(&mutex_train14);
-        L(4);
+        L(4, 4);
         pthread_mutex_unlock(&mutex_train14);
         pthread_mutex_lock(&mutex_train24);
-        L(6);
+        L(6, 4);
         pthread_mutex_unlock(&mutex_train24);
         pthread_mutex_lock(&mutex_train34);
-        L(10);
+        L(10, 4);
         pthread_mutex_unlock(&mutex_train34);
-        L(12);
+        L(12, 4);
     }
 }
 
-void L(int path_id) {
+void L(int path_id, int train) {
+    cout << "train " << train << " is now over L" << path_id << endl;
     sleep(train_velocity[path_id - 1]); // the array index starts with 0
 }
