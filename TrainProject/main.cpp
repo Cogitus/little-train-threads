@@ -21,13 +21,15 @@ void L(int path_id, int train, MainWindow *w); // function that represents the p
 // MUTEX DEFINITIONS AS GLOBAL
 pthread_mutex_t mutex_train12;   // mutex for train 1 and 2 intersection
 pthread_mutex_t mutex_train23;   // mutex for train 2 and 3 intersection
-pthread_mutex_t mutex_train14;   // mutex for train 1 and 4 intersection
-pthread_mutex_t mutex_train24;   // mutex for train 2 and 4 intersection
-pthread_mutex_t mutex_train34;   // mutex for train 3 and 4 intersection
+
+pthread_mutex_t mutex_L4L6L10;
+
+//pthread_mutex_t mutex_train14;   // mutex for train 1 and 4 intersection
+//pthread_mutex_t mutex_train24;   // mutex for train 2 and 4 intersection
+//pthread_mutex_t mutex_train34;   // mutex for train 3 and 4 intersection
 
 // TRAIN VELOCITY ARRAY
-//int train_velocity[13] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-int train_velocity[4] = {1, 1, 1, 1};
+int train_velocity[4] = {8, 4, 2, 1};
 
 int main(int argc, char *argv[])
 {
@@ -45,15 +47,18 @@ int main(int argc, char *argv[])
     failure = pthread_mutex_init(&mutex_train23, NULL);
     if(failure)
         exit(EXIT_FAILURE);
-    failure = pthread_mutex_init(&mutex_train14, NULL);
+    failure = pthread_mutex_init(&mutex_L4L6L10, NULL);
     if(failure)
         exit(EXIT_FAILURE);
-    failure = pthread_mutex_init(&mutex_train24, NULL);
-    if(failure)
-        exit(EXIT_FAILURE);
-    failure = pthread_mutex_init(&mutex_train34, NULL);
-    if(failure)
-        exit(EXIT_FAILURE);
+//    failure = pthread_mutex_init(&mutex_train14, NULL);
+//    if(failure)
+//        exit(EXIT_FAILURE);
+//    failure = pthread_mutex_init(&mutex_train24, NULL);
+//    if(failure)
+//        exit(EXIT_FAILURE);
+//    failure = pthread_mutex_init(&mutex_train34, NULL);
+//    if(failure)
+//        exit(EXIT_FAILURE);
 
     // initializing th threads
     failure = pthread_create(&train1, NULL, train1_execution, &w);
@@ -82,12 +87,16 @@ void* train1_execution(void *w_old){
         pthread_mutex_lock(&mutex_train12); // tenta entrar em L3
         w->resetColorLine(2);
         L(3, 1, w);
-        pthread_mutex_lock(&mutex_train14); // tenta entrar em L4
+
+        pthread_mutex_lock(&mutex_L4L6L10);     // tenta entrar em L4 L6 L10
+
         pthread_mutex_unlock(&mutex_train12); // libera L3
         w->resetColorLine(3);
         L(4, 1, w);
         w->resetColorLine(4);
-        pthread_mutex_unlock(&mutex_train14); // libera L4
+
+        pthread_mutex_unlock(&mutex_L4L6L10);   // libera L4 L6 L10
+
         L(1, 1, w);
         w->resetColorLine(1);
     }
@@ -100,12 +109,16 @@ void* train2_execution(void *w_old){
         pthread_mutex_lock(&mutex_train23);     // tenta entrar em L5
         w->resetColorLine(7);
         L(5, 2, w);
-        pthread_mutex_lock(&mutex_train24);     // tenta entrar em L6
+
+        pthread_mutex_lock(&mutex_L4L6L10);     // tenta entrar em L4 L6 L10
+
         pthread_mutex_unlock(&mutex_train23);   // libera L5
         w->resetColorLine(5);
         L(6, 2, w);
         pthread_mutex_lock(&mutex_train12);     // tenta entrar em L3
-        pthread_mutex_unlock(&mutex_train24);   // libera L6
+
+        pthread_mutex_unlock(&mutex_L4L6L10);   // libera L4 L6 L10
+
         w->resetColorLine(6);                   // reseta cor de L6
         L(3, 2, w);                             // percorre L3
         w->resetColorLine(3);                   // reseta cor de L3
@@ -119,12 +132,14 @@ void* train3_execution(void *w_old){
         L(8, 3, w);
         w->resetColorLine(8);
         L(9, 3, w);
-        pthread_mutex_lock(&mutex_train34);     // tenta entrar em L10
+        pthread_mutex_lock(&mutex_L4L6L10);     // tenta entrar em L4 L6 L10
+
         w->resetColorLine(9);                   // reseta cor L9
         L(10, 3, w);                            // percorre L10
 
         pthread_mutex_lock(&mutex_train23);     // tenta entrar em L5
-        pthread_mutex_unlock(&mutex_train34);   // libera L10
+
+        pthread_mutex_unlock(&mutex_L4L6L10);   // libera L4 L6 L10
 
         w->resetColorLine(10);
         L(5, 3, w);
@@ -139,20 +154,20 @@ void* train4_execution(void *w_old){
         L(13, 4, w);
         w->resetColorLine(13);
         L(11, 4, w);
-        pthread_mutex_lock(&mutex_train14);     // tenta entrar em L4
+        pthread_mutex_lock(&mutex_L4L6L10);     // tenta entrar em L4 L6 L10
+
+
         w->resetColorLine(11);
         L(4, 4, w);
-        pthread_mutex_lock(&mutex_train24);     // tenta entrar em L6
-        pthread_mutex_unlock(&mutex_train14);   // libera L4
         w->resetColorLine(4);
         L(6, 4, w);
-        pthread_mutex_lock(&mutex_train34);     // tenta entrar em L10
-        pthread_mutex_unlock(&mutex_train24);   // libera L6
         w->resetColorLine(6);
         L(10, 4, w);
         w->resetColorLine(10);
-        pthread_mutex_unlock(&mutex_train34);   // libera L10
+
+        pthread_mutex_unlock(&mutex_L4L6L10);   // libera L4 L6 L10
         L(12, 4, w);
+
         w->resetColorLine(12);
     }
 }
