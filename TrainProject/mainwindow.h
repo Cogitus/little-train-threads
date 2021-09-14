@@ -26,6 +26,8 @@ public:
                                      {4, Qt::blue}};
     QMap<int, QFrame*> trackObjects;
 
+    int ocupado[12] = {0};
+
 private:
     Ui::MainWindow *ui;
 };
