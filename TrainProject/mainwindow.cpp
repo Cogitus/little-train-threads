@@ -3,6 +3,7 @@
 
 #include <QColor>
 #include <QStyle>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,6 +24,10 @@ MainWindow::MainWindow(QWidget *parent)
                                     {12, ui->L12},
                                     {13, ui->L13}};
     trackObjects = tempTrack;
+
+    QTimer* repaint_timer = new QTimer(this);
+    connect(repaint_timer, SIGNAL(timeout()), this, SLOT(repaintTracks()));
+    repaint_timer->start(50);
 }
 
 MainWindow::~MainWindow()
@@ -42,5 +47,12 @@ void MainWindow::resetColorLine(int path_id)
     QColor color = Qt::gray;
     QPalette *newPalette = new QPalette();
     trackObjects[path_id]->setPalette(*newPalette);
+}
+
+void MainWindow::repaintTracks()
+{
+    for (int i=0; i<13 ;i++) {
+        setColorLine(i, tracks[i]);
+    }
 }
 

@@ -180,6 +180,11 @@ void* train4_execution(void *w_old){
 }
 
 void L(int path_id, int train, MainWindow *w) {
-    w->setColorLine(path_id, train);
+    for (int i=0; i < 13; i++) {
+        if(w->tracks[i] == train)
+            w->tracks[i] = 0;          // zera o trilho que o trem estava
+    }
+    w->tracks[path_id] = train;
+    //w->setColorLine(path_id, train);
     sleep(train_velocity[train - 1]); // the array index starts with 0
 }
