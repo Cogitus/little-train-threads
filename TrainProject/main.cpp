@@ -25,14 +25,11 @@ pthread_mutex_t mutex_train23;   // mutex for train 2 and 3 intersection
 
 pthread_mutex_t mutex_L4L6L10;
 
-//pthread_mutex_t mutex_train14;   // mutex for train 1 and 4 intersection
-//pthread_mutex_t mutex_train24;   // mutex for train 2 and 4 intersection
-//pthread_mutex_t mutex_train34;   // mutex for train 3 and 4 intersection
 
 // TRAIN VELOCITY ARRAY
-int train_velocity[4] = {3, 2, 3, 2};
+int train_velocity[4] = {1, 1, 1, 1};
 
-sem_t semaphore;
+sem_t semaphoreL3, semaphoreL4, semaphoreL5, semaphoreL6, semaphoreL10;
 
 int main(int argc, char *argv[])
 {
@@ -44,7 +41,19 @@ int main(int argc, char *argv[])
     pthread_t train1, train2, train3, train4;
 
     // initializing semaphore
-    failure = sem_init(&semaphore, 0, 1);
+    failure = sem_init(&semaphoreL3, 0, 1);
+    if(failure)
+        exit(EXIT_FAILURE);
+    failure = sem_init(&semaphoreL4, 0, 1);
+    if(failure)
+        exit(EXIT_FAILURE);
+    failure = sem_init(&semaphoreL5, 0, 1);
+    if(failure)
+        exit(EXIT_FAILURE);
+    failure = sem_init(&semaphoreL6, 0, 1);
+    if(failure)
+        exit(EXIT_FAILURE);
+    failure = sem_init(&semaphoreL10, 0, 1);
     if(failure)
         exit(EXIT_FAILURE);
 
@@ -58,15 +67,6 @@ int main(int argc, char *argv[])
     failure = pthread_mutex_init(&mutex_L4L6L10, NULL);
     if(failure)
         exit(EXIT_FAILURE);
-//    failure = pthread_mutex_init(&mutex_train14, NULL);
-//    if(failure)
-//        exit(EXIT_FAILURE);
-//    failure = pthread_mutex_init(&mutex_train24, NULL);
-//    if(failure)
-//        exit(EXIT_FAILURE);
-//    failure = pthread_mutex_init(&mutex_train34, NULL);
-//    if(failure)
-//        exit(EXIT_FAILURE);
 
     // initializing th threads
     failure = pthread_create(&train1, NULL, train1_execution, &w);
@@ -92,23 +92,12 @@ void* train1_execution(void *w_old){
     MainWindow *w = (MainWindow*)w_old;
     while(true) {
         L(2, 1, w);
-        pthread_mutex_lock(&mutex_train12); // tenta entrar em L3
-        w->resetColorLine(2);
+        sem_wait(&semaphoreL3L4L6); // tenta entrar em L3
         L(3, 1, w);
-        pthread_mutex_unlock(&mutex_train12); // libera L3
-
-        //pthread_mutex_lock(&mutex_L4L6L10);     // tenta entrar em L4 L6 L10
-
-        sem_wait(&semaphore);
-        w->resetColorLine(3);
         L(4, 1, w);
-        w->resetColorLine(4);
-        sem_post(&semaphore);
-
-        //pthread_mutex_unlock(&mutex_L4L6L10);   // libera L4 L6 L10
+        sem_post(&semaphoreL3L4L6); // libera L4L6L10
 
         L(1, 1, w);
-        w->resetColorLine(1);
     }
 }
 
@@ -116,22 +105,15 @@ void* train2_execution(void *w_old){
     MainWindow *w = (MainWindow*)w_old;
     while(true) {
         L(7, 2, w);
-        pthread_mutex_lock(&mutex_train23);     // tenta entrar em L5
-        w->resetColorLine(7);
+        sem_wait(&semaphoreL5L6L10);     // tenta entrar em L5
         L(5, 2, w);
-        pthread_mutex_unlock(&mutex_train23);   // libera L5
-
-        sem_wait(&semaphore);
-        w->resetColorLine(5);
         L(6, 2, w);
-        sem_post(&semaphore);
 
-        pthread_mutex_lock(&mutex_train12);     // tenta entrar em L3
+        sem_wait(&semaphoreL3L4L6);     // tenta entrar em L3
+        sem_post(&semaphoreL5L6L10); // libera L4L6L10
 
-        w->resetColorLine(6);                   // reseta cor de L6
         L(3, 2, w);                             // percorre L3
-        w->resetColorLine(3);                   // reseta cor de L3
-        pthread_mutex_unlock(&mutex_train12);   // libera L3
+        sem_post(&semaphoreL3L4L6);   // libera L3
     }
 }
 
@@ -139,20 +121,12 @@ void* train3_execution(void *w_old){
     MainWindow *w = (MainWindow*)w_old;
     while(true) {
         L(8, 3, w);
-        w->resetColorLine(8);
         L(9, 3, w);
 
-        sem_wait(&semaphore);
-        w->resetColorLine(9);                   // reseta cor L9
-        L(10, 3, w);                            // percorre L10
-        sem_post(&semaphore);
-
-        pthread_mutex_lock(&mutex_train23);     // tenta entrar em L5
-
-        w->resetColorLine(10);
+        sem_wait(&semaphoreL5L6L10); // tenta entrar em L4L6L10
+        L(10, 3, w);
         L(5, 3, w);
-        w->resetColorLine(5);
-        pthread_mutex_unlock(&mutex_train23);   // libera L5
+        sem_post(&semaphoreL5L6L10); // libera L4L6L10
     }
 }
 
@@ -160,22 +134,16 @@ void* train4_execution(void *w_old){
     MainWindow *w = (MainWindow*)w_old;
     while(true) {
         L(13, 4, w);
-        w->resetColorLine(13);
         L(11, 4, w);
 
-        sem_wait(&semaphore);
-        w->resetColorLine(11);
+        sem_wait(&semaphoreL3L4L6);
         L(4, 4, w);
-        w->resetColorLine(4);
+        sem_wait(&semaphoreL5L6L10);
         L(6, 4, w);
-        w->resetColorLine(6);
         L(10, 4, w);
-        w->resetColorLine(10);
-        sem_post(&semaphore);
-
+        sem_post(&semaphoreL3L4L6);
         L(12, 4, w);
-
-        w->resetColorLine(12);
+        sem_post(&semaphoreL5L6L10);
     }
 }
 
@@ -185,6 +153,5 @@ void L(int path_id, int train, MainWindow *w) {
             w->tracks[i] = 0;          // zera o trilho que o trem estava
     }
     w->tracks[path_id-1] = train;
-    //w->setColorLine(path_id, train);
-    sleep(train_velocity[train - 1]); // the array index starts with 0
+    w->sleepTime(train);
 }

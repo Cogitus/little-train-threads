@@ -4,6 +4,7 @@
 #include <QColor>
 #include <QStyle>
 #include <QTimer>
+#include <unistd.h>     // for sleep()
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,7 +28,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     QTimer* repaint_timer = new QTimer(this);
     connect(repaint_timer, SIGNAL(timeout()), this, SLOT(repaintTracks()));
-    repaint_timer->start(50);
+    repaint_timer->start(10);
+
+    ui->train1HorizontalSlider->setMaximum(4);
+    ui->train1HorizontalSlider->setMinimum(1);
+
+    ui->train2HorizontalSlider->setMaximum(4);
+    ui->train2HorizontalSlider->setMinimum(1);
+
+    ui->train3HorizontalSlider->setMaximum(4);
+    ui->train3HorizontalSlider->setMinimum(1);
+
+    ui->train4horizontalSlider->setMaximum(4);
+    ui->train4horizontalSlider->setMinimum(1);
 }
 
 MainWindow::~MainWindow()
@@ -42,16 +55,28 @@ void MainWindow::setColorLine(int path_id, int train)
     trackObjects[path_id]->setPalette(*newPalette);
 }
 
-void MainWindow::resetColorLine(int path_id)
+void MainWindow::sleepTime(int train)
 {
-    QPalette *newPalette = new QPalette();
-    trackObjects[path_id]->setPalette(*newPalette);
+    switch (train) {
+        case 1:
+            sleep(ui->train1HorizontalSlider->value());
+            break;
+        case 2:
+            sleep(ui->train2HorizontalSlider->value());
+            break;
+        case 3:
+            sleep(ui->train3HorizontalSlider->value());
+            break;
+        case 4:
+            sleep(ui->train4horizontalSlider->value());
+            break;
+    }
 }
 
 void MainWindow::repaintTracks()
 {
     for (int i=0; i<13 ;i++) {
-        setColorLine(i, tracks[i]);
+        setColorLine(i+1, tracks[i]);
     }
 }
 

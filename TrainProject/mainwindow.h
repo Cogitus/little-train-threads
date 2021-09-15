@@ -18,7 +18,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void setColorLine(int path_id, int train);
-    void resetColorLine(int path_id);
+    void sleepTime(int train);
 
     QMap<int, QColor> trainColors = {{0, Qt::gray},
                                      {1, Qt::cyan},
@@ -27,7 +27,7 @@ public:
                                      {4, Qt::blue}};
     QMap<int, QFrame*> trackObjects;
 
-    int tracks[13] = {0};
+    int tracks[13] = {0,1,0,0,0,0,2,3,0,0,0,0,4};
 
 public slots:
     void repaintTracks();
