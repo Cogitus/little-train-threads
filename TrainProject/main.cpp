@@ -95,8 +95,8 @@ void* train1_execution(void *w_old){
         sem_wait(&semaphoreL4);
         sem_wait(&semaphoreL3);
         L(3, 1, w);
-        L(4, 1, w);
         sem_post(&semaphoreL3);
+        L(4, 1, w);
         sem_post(&semaphoreL4);
         L(1, 1, w);
     }
@@ -110,10 +110,10 @@ void* train2_execution(void *w_old){
         sem_wait(&semaphoreL6);
         sem_wait(&semaphoreL5);
         L(5, 2, w);
-        L(6, 2, w);
-        L(3, 2, w);
         sem_post(&semaphoreL5);
+        L(6, 2, w);
         sem_post(&semaphoreL6);
+        L(3, 2, w);
         sem_post(&semaphoreL3);
     }
 }
@@ -126,8 +126,8 @@ void* train3_execution(void *w_old){
         sem_wait(&semaphoreL5);
         sem_wait(&semaphoreL10);
         L(10, 3, w);
-        L(5, 3, w);
         sem_post(&semaphoreL10);
+        L(5, 3, w);
         sem_post(&semaphoreL5);
     }
 }
@@ -141,10 +141,10 @@ void* train4_execution(void *w_old){
         sem_wait(&semaphoreL6);
         sem_wait(&semaphoreL4);
         L(4, 4, w);
-        L(6, 4, w);
-        L(10, 4, w);
         sem_post(&semaphoreL4);
+        L(6, 4, w);
         sem_post(&semaphoreL6);
+        L(10, 4, w);
         sem_post(&semaphoreL10);
         L(12, 4, w);
     }
