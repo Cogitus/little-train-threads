@@ -92,11 +92,12 @@ void* train1_execution(void *w_old){
     MainWindow *w = (MainWindow*)w_old;
     while(true) {
         L(2, 1, w);
-        sem_wait(&semaphoreL3L4L6); // tenta entrar em L3
+        sem_wait(&semaphoreL4);
+        sem_wait(&semaphoreL3);
         L(3, 1, w);
         L(4, 1, w);
-        sem_post(&semaphoreL3L4L6); // libera L4L6L10
-
+        sem_post(&semaphoreL3);
+        sem_post(&semaphoreL4);
         L(1, 1, w);
     }
 }
@@ -105,15 +106,15 @@ void* train2_execution(void *w_old){
     MainWindow *w = (MainWindow*)w_old;
     while(true) {
         L(7, 2, w);
-        sem_wait(&semaphoreL5L6L10);     // tenta entrar em L5
+        sem_wait(&semaphoreL3);
+        sem_wait(&semaphoreL6);
+        sem_wait(&semaphoreL5);
         L(5, 2, w);
         L(6, 2, w);
-
-        sem_wait(&semaphoreL3L4L6);     // tenta entrar em L3
-        sem_post(&semaphoreL5L6L10); // libera L4L6L10
-
-        L(3, 2, w);                             // percorre L3
-        sem_post(&semaphoreL3L4L6);   // libera L3
+        L(3, 2, w);
+        sem_post(&semaphoreL5);
+        sem_post(&semaphoreL6);
+        sem_post(&semaphoreL3);
     }
 }
 
@@ -122,11 +123,12 @@ void* train3_execution(void *w_old){
     while(true) {
         L(8, 3, w);
         L(9, 3, w);
-
-        sem_wait(&semaphoreL5L6L10); // tenta entrar em L4L6L10
+        sem_wait(&semaphoreL5);
+        sem_wait(&semaphoreL10);
         L(10, 3, w);
         L(5, 3, w);
-        sem_post(&semaphoreL5L6L10); // libera L4L6L10
+        sem_post(&semaphoreL10);
+        sem_post(&semaphoreL5);
     }
 }
 
@@ -135,15 +137,16 @@ void* train4_execution(void *w_old){
     while(true) {
         L(13, 4, w);
         L(11, 4, w);
-
-        sem_wait(&semaphoreL3L4L6);
+        sem_wait(&semaphoreL10);
+        sem_wait(&semaphoreL6);
+        sem_wait(&semaphoreL4);
         L(4, 4, w);
-        sem_wait(&semaphoreL5L6L10);
         L(6, 4, w);
         L(10, 4, w);
-        sem_post(&semaphoreL3L4L6);
+        sem_post(&semaphoreL4);
+        sem_post(&semaphoreL6);
+        sem_post(&semaphoreL10);
         L(12, 4, w);
-        sem_post(&semaphoreL5L6L10);
     }
 }
 
