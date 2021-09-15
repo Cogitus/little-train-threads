@@ -57,18 +57,19 @@ void MainWindow::setColorLine(int path_id, int train)
 
 void MainWindow::sleepTime(int train)
 {
+    int MAX = 5;
     switch (train) {
         case 1:
-            sleep(ui->train1HorizontalSlider->value());
+            sleep(MAX - ui->train1HorizontalSlider->value());
             break;
         case 2:
-            sleep(ui->train2HorizontalSlider->value());
+            sleep(MAX - ui->train2HorizontalSlider->value());
             break;
         case 3:
-            sleep(ui->train3HorizontalSlider->value());
+            sleep(MAX - ui->train3HorizontalSlider->value());
             break;
         case 4:
-            sleep(ui->train4horizontalSlider->value());
+            sleep(MAX - ui->train4horizontalSlider->value());
             break;
     }
 }
